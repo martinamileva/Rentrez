@@ -1,0 +1,99 @@
+---
+title: "Analysis"
+author: "Martina Mileva"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r}
+library(dplyr)
+```
+
+
+Importing the Sequences data:
+
+```{r}
+Seq <- read.csv("Sequences.csv")
+```
+
+Splitting the sequences into their own vectors and printing each sequence:
+
+```{r}
+SplitSeq <- strsplit(Seq$Sequence, "")
+
+HQ433692.1 <- SplitSeq[[1]]
+print(HQ433692.1)
+
+HQ433694.1 <- SplitSeq[[2]]
+print(HQ433694.1)
+
+HQ433691.1 <- SplitSeq[[3]]
+print(HQ433691.1)
+```
+
+Counting the number of each nucleotide and displaying it as a table for each sequence:
+
+```{r}
+# for HQ433692.1
+
+Nuc_92.1 <- as.data.frame(table(HQ433692.1))
+
+row.names(Nuc_92.1) <- c("A","C","G","T")
+
+Nuc_92.1 <- Nuc_92.1 %>%
+  select(Freq) %>%
+  rename(HQ433692.1=Freq)
+
+Nuc_92.1 <- as.data.frame(t(Nuc_92.1))
+
+print(Nuc_92.1)
+
+
+# for HQ433694.1
+
+Nuc_94.1 <- as.data.frame(table(HQ433694.1))
+
+row.names(Nuc_94.1) <- c("A","C","G","T")
+
+Nuc_94.1 <- Nuc_94.1 %>%
+  select(Freq) %>%
+  rename(HQ433694.1=Freq)
+
+Nuc_94.1 <- as.data.frame(t(Nuc_94.1))
+
+print(Nuc_94.1)
+
+
+# for HQ433691.1
+
+Nuc_91.1 <- as.data.frame(table(HQ433691.1))
+
+row.names(Nuc_91.1) <- c("A","C","G","T")
+
+Nuc_91.1 <- Nuc_91.1 %>%
+  select(Freq) %>%
+  rename(HQ433691.1=Freq)
+
+Nuc_91.1 <- as.data.frame(t(Nuc_91.1))
+
+print(Nuc_91.1)
+
+```
+
+<img src="Borrelia.jpg"/>
+
+[*Borrelia burgdorferi* wikipedia page](https://en.wikipedia.org/wiki/Borrelia_burgdorferi)
+
+
+Calculating *GC content* for each sequence:
+
+```{r}
+Nuc_Count <- rbind(Nuc_92.1, Nuc_94.1, Nuc_91.1)
+
+Nuc_Count <- Nuc_Count %>%
+  mutate(Percent_GC=((G+C)/(A+C+G+T))*100) %>% 
+  select(Percent_GC)
+
+print(Nuc_Count)
+```
+
