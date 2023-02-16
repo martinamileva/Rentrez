@@ -1,0 +1,22 @@
+---
+title: "Part II"
+author: "Martina Mileva"
+date: '`r Sys.Date()`'
+output: html_document
+---
+
+[Repository](https://github.com/martinamileva/Rentrez)
+
+```{r}
+S <- "> Human isolate, unknown sequence
+GCCTGATGGAGGGGGATAACTACTGGAAACGGTAGCTAATACCGCATGAC
+CTCGCAAGAGCAAAGTGGGGGACCTTAGGGCCTCACGCCATCGGATGAAC
+CCAGATGGGATTAGCTAGTAGGTGGGGTAATGGCTCACCTAGGCGACGAT
+CCCTAGCTGGTCTGAGAGGATGACCAGCCACACTGGAACTGAGACACGGT
+CCAGACTCCTACGGGAGGCAGCAGTGGGGAATATTGCACAATGGGCGCAA"
+```
+
+```{r}
+library(annotate)
+Blast <- blastSequences(S, as='data.frame')
+```
